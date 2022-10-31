@@ -7,8 +7,8 @@ function App() {
     {id: 2, name: 'proof', value: 6},
     {id: 3, name: 'applet', value: 9},
     {id: 4, name: 'oranges', value: 3}
-  ])
-  const 
+  ]);
+  const [sort, setSort] = React.useState ( 'name');
   return (
     <div className="App">
       <ul>
