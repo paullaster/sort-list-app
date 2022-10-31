@@ -1,8 +1,11 @@
 import React from 'react';
 import sortBy from 'lodash.sortby';
+import {v4 as uuidv4} from 'uuid';
 import './App.css';
 
 function App() {
+  const [name, setName] = React.useState ('');
+  const [value, setValue] = React.useState ( '');
   const [list, setList] = React.useState ([
     {id: 1, name: 'picker', value: 4},
     {id: 2, name: 'proof', value: 6},
@@ -18,9 +21,34 @@ function App() {
     setSort ( 'value');
   };
 
+  const handleName = (event) => {
+    setName (event.target.value);
+
+    //setName ('');
+  };
+  const handleValue = (event) => {
+    setValue (event.target.value);
+
+    //setValue ( '');
+  };
+  const handleAdd = () => {
+    const newItem = {
+      id: uuidv4 (),
+      name: name,
+      value: parseInt (value)
+    };
+    const newList = list.concat ( newItem);
+    setList (newList);
+  };
   const sortedList  = sortBy ( list, sort);
+
   return (
     <div className="App">
+      <div>
+        <input type='text' placeholder='enter name' onChange={handleName} />
+        <input type='number' placeholder='Enter value' onChange={handleValue} />
+        <button onClick={handleAdd}>Add</button>
+      </div>
       <button type='button' onClick={handleNameSort} >
         sort by name
       </button>
@@ -29,7 +57,7 @@ function App() {
       </button>
       <ul>
         {
-          list.map ( (item) => {
+          sortedList.map ( (item) => {
             return (
               <li>
                 <span>{item.name}</span> : <span>{item.value}</span>
