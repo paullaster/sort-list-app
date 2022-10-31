@@ -1,4 +1,5 @@
 import React from 'react';
+import sortBy from 'lodash.sortby';
 import './App.css';
 
 function App() {
@@ -9,8 +10,23 @@ function App() {
     {id: 4, name: 'oranges', value: 3}
   ]);
   const [sort, setSort] = React.useState ( 'name');
+
+  const handleNameSort = () => {
+    setSort ('name');
+  };
+  const handleValueSort = () => {
+    setSort ( 'value');
+  };
+
+  const sortedList  = sortBy ( list, sort);
   return (
     <div className="App">
+      <button type='button' onClick={handleNameSort} >
+        sort by name
+      </button>
+      <button type='button' onClick={handleValueSort} >
+        sort by value
+      </button>
       <ul>
         {
           list.map ( (item) => {
