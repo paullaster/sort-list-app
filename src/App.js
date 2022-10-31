@@ -12,13 +12,21 @@ function App() {
     {id: 3, name: 'applet', value: 9},
     {id: 4, name: 'oranges', value: 3}
   ]);
-  const [sort, setSort] = React.useState ( 'name');
+  const [sort, setSort] = React.useState ( {
+    property: 'name',
+    isReverse: false,
+  });
 
   const handleNameSort = () => {
-    setSort ('name');
+    const isReverse = sort.property === 'name' && !sort.isReverse;
+    setSort ( {property: 'name', isReverse});
   };
   const handleValueSort = () => {
-    setSort ( 'value');
+    const isReverse = sort.property === 'value' && !sort.isReverse;
+    setSort ( {
+      property: 'value',
+      isReverse
+    });
   };
 
   const handleName = (event) => {
@@ -40,7 +48,9 @@ function App() {
     const newList = list.concat ( newItem);
     setList (newList);
   };
-  const sortedList  = sortBy ( list, sort);
+  const sortedList  = sort.isReverse ? 
+  sortBy ( list, sort.property) 
+  : sortBy ( list, sort.property).reverse ();
 
   return (
     <div className="App">
